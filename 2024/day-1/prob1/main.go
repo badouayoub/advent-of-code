@@ -44,8 +44,6 @@ func parseDataToSortedArr(data string) ([]int, []int) {
 func main() {
 	data := fileToString("input.txt")
 	list1, list2 := parseDataToSortedArr(data)
-	fmt.Println(list1)
-	fmt.Println(list2)
 
 	totalDistance := 0
 	for i := range list1 {
