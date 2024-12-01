@@ -41,25 +41,14 @@ func parseDataToSortedArr(data string) ([]int, []int) {
 	return list1, list2
 }
 
-func countRightList(arr []int) map[int]int {
-	counter := make(map[int]int)
-
-	for _, value := range arr {
-		counter[value]++
-	}
-
-	return counter
-}
-
 func main() {
-	data := fileToString("input.txt")
+	data := fileToString("../input.txt")
 	list1, list2 := parseDataToSortedArr(data)
-	counter := countRightList(list2)
 
-	similarityScore := 0
-	for i, value := range list1 {
-		sum := list1[i] * counter[value]
-		similarityScore += int(math.Abs(float64(sum)))
+	totalDistance := 0
+	for i := range list1 {
+		sum := list1[i] - list2[i]
+		totalDistance += int(math.Abs(float64(sum)))
 	}
-	fmt.Println(similarityScore)
+	fmt.Println(totalDistance)
 }
