@@ -28,8 +28,7 @@ func parseDataToSortedArr(data string) ([]int, []int) {
 			intId, err := strconv.Atoi(id)
 			if err != nil {
 				continue
-			}
-			if idx == 0 {
+			} else if idx == 0 {
 				list1 = append(list1, intId)
 			} else if idx == 1 {
 				list2 = append(list2, intId)
