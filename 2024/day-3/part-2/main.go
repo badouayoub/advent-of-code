@@ -26,15 +26,26 @@ func strToInt(s string) int {
 func main() {
 	data := fileToString("../input.txt")
 
-	// Loop through each character
-	reFindValidMul := regexp.MustCompile("mul\\(\\d+,\\d+\\)")
+	reFindInstructions := regexp.MustCompile("((mul\\(\\d+,\\d+\\))|(don't)|(do))")
 	reExtractArgs := regexp.MustCompile("\\d+")
-	matches := reFindValidMul.FindAllStringSubmatch(data, -1)
+	matches := reFindInstructions.FindAllStringSubmatch(data, -1)
 
 	sum := 0
+	enabled := true
 	for _, match := range matches {
-		args := reExtractArgs.FindAllStringSubmatch(match[0], -1)
-		sum += strToInt(args[0][0]) * strToInt(args[1][0])
+		instruction := match[0]
+		if instruction == "don't" {
+			enabled = false
+			continue
+		} else if instruction == "do" {
+			enabled = true
+			continue
+		}
+		for enabled {
+			args := reExtractArgs.FindAllStringSubmatch(instruction, -1)
+			sum += strToInt(args[0][0]) * strToInt(args[1][0])
+			break
+		}
 	}
 	fmt.Println(sum)
 }
